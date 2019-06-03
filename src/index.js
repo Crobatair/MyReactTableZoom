@@ -29,13 +29,30 @@ class App extends React.Component {
     });
   };
 
+  updateData = () => {
+    this.setState({
+      data: this.state.data.filter(de => {
+        return de.firstName.includes("er") ? true : false;
+      })
+    });
+  };
+
+  removeData = d => {
+    return d
+      .filter(dat => {
+        dat.includes("e");
+      })
+      .map({ ...d });
+  };
+
   render() {
     const { data, zoom, dx, dy } = this.state;
     return (
       <div>
+        <button onClick={this.zoomIn}>+</button>
+        <button onClick={this.zoomOut}>-</button>
+        <button onClick={this.updateData}>UPDATE</button>
         <ReactPanZoom zoom={zoom} pandx={dx} pandy={dy}>
-          <button onClick={this.zoomIn}>+</button>
-          <button onClick={this.zoomOut}>-</button>
           <ReactTable
             data={data}
             columns={[
